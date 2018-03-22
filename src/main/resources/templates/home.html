@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Caixinha</title>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"></link>
+<script>
+$(".dropdown-button").dropdown();
+</script>
+
+<style>
+.header {
+	color: #ee6e73;
+	font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+	<div th:include="menu/menu :: menu"></div>
+  
+  
+	
+	<div class="container">
+		<h2 class="header">Sistema Rocha</h2>
+		<div class="row">
+			<a class="waves-effect waves-light btn" th:href="@{/cota/anual/cadastrar}"><i class="material-icons right"></i>Cota Anual</a>
+			<a class="waves-effect waves-light btn" th:href="@{/cooperado/cadastrar}"><i class="material-icons right"></i>Cooperado</a>
+			<a class="waves-effect waves-light btn" th:href="@{/cota/cooperado/cadastrar}"><i class="material-icons right"></i>Cota Cooperado</a>
+			<a class="waves-effect waves-light btn" th:href="@{/mensalidade/cadastrar}"><i class="material-icons right"></i>Mensalidade</a>
+		</div>
+
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+</body>
+
+</html>
+

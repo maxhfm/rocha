@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rocha</title>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"></link>
+
+</head>
+<body>
+<div th:include="menu/menu :: menu"></div>
+<form class="col s12" th:action="@{/emprestimo/retornoSimulacao}" th:object="${emprestimo}" method="POST">
+	<div class="container">
+		<h4 class="red-text text-darken-4">Simulacao de Emprestimo</h4>
+
+		<div class="row">
+			<div class="input-field col s4">
+				<label for="valor">Valor Emprestimo</label>
+				<input type="text" th:field="*{emprestimo}"/>
+			</div>
+			
+			<div class="input-field col s4">
+				<label for="competencia">Previsao do Valor do Primeiro Pagamento</label>
+				<input type="text" th:field="*{primeiroPagamento}"/>
+			</div>
+			
+			<div class="input-field col s4">
+				<label for="competencia">Número de parcelas</label>
+				<input type="text" th:field="*{parcelas}"/>
+			</div>
+		</div>
+		<div class="row">
+			<button class="btn btn-success" type="submit">Salvar</button>
+		</div>
+
+			<table class="striped highlight">
+				<thead>
+					<tr>
+						<th>Valor da Parcela</th>
+						<th>Juros</th>
+						<th></th>
+					<tr>
+				</thead>
+
+				<tr>
+					
+					<td></td>
+					<td></td>
+				</tr>
+
+			</table>
+
+		</div>
+</form>
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+
+</body>
+</html>

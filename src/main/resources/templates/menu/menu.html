@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Caixinha</title>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"></link>
+
+<style>
+.header {
+	color: #ee6e73;
+	font-weight: 300;
+}
+
+.ilike-blue-container {
+    @extend .blue, .lighten-4;
+}
+</style>
+</head>
+<body>
+<div th:fragment="menu">
+<ul id="cooperado" class="dropdown-content">
+		<li><a href="#!">Cooperado</a></li>
+		<li><a th:href="@{/pessoa/cooperado/cadastrar}">Cadastrar</a></li>
+		<li><a th:href="@{/pessoa/cooperado/pesquisar}">Pesquisar</a></li>
+		<li class="divider"></li>
+		<li><a href="#!">Cliente</a></li>
+		<li><a th:href="@{/pessoa/cliente/cadastrar}">Cadastrar</a></li>
+		<li><a th:href="@{/pessoa/cliente/pesquisar}">Pesquisar</a></li>
+		
+	</ul>
+	<ul id="cotaAnual" class="dropdown-content">
+		<li><a th:href="@{/cota/anual/cadastrar}">Cadastrar</a></li>
+		<li><a th:href="@{/cota/anual/excluir}">Excluir</a></li>
+		<li><a th:href="@{/cota/anual/editar}">Editar</a></li>
+		<li class="divider"></li>
+		<li><a th:href="@{/cota/anual/pesquisar}">Pesquisar</a></li>
+	</ul>
+	<ul id="cotaCooperado" class="dropdown-content">
+		<li><a th:href="@{/cota/cooperado/cadastrar}">Cadastrar</a></li>
+		<li><a th:href="@{/cota/cooperado/excluir}">Excluir</a></li>
+		<li><a th:href="@{/cota/cooperado/editar}">Editar</a></li>
+		<li class="divider"></li>
+		<li><a th:href="@{/cota/cooperado/pesquisar}">Pesquisar</a></li>
+	</ul>
+	<ul id="mensalidade" class="dropdown-content">
+		<li><a th:href="@{/mensalidade/cadastrar}">Cadastrar</a></li>
+		<li><a th:href="@{/mensalidade/excluir}">Excluir</a></li>
+		<li><a th:href="@{/mensalidade/editar}">Editar</a></li>
+		<li class="divider"></li>
+		<li><a th:href="@{/mensalidade/pesquisar}">Pesquisar</a></li>
+		<li><a th:href="@{/mensalidade/pesquisarCompCooperado}">Mensalidade Acumulada Ano</a></li>
+		
+	</ul>
+	<ul id="emprestimo" class="dropdown-content">
+		<li><a th:href="@{/contaEmprestimo/cadastrar}">Emprestar</a></li>
+		<li><a th:href="@{/contaEmprestimo/pagar}">Pagar</a></li>
+		<li><a th:href="@{/contaEmprestimo/extrato}">Extrato</a></li>
+		<li><a th:href="@{/emprestimo/simulacao}">Simulação</a></li>
+		<li><a th:href="@{/contaEmprestimo/pagar}">Pagar</a></li>
+		<li><a href="#!">Emprestimo</a></li>
+	</ul>
+
+	<nav>
+    <div class="nav-wrapper ">
+      <a th:href="@{/home}" class="right brand-logo">Sistema Rocha</a>
+      <ul id="nav-mobile" class="hide-on-med-and-down">
+          <li><a class="dropdown-button" href="#!" data-activates="cotaAnual">Cota Anual</a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="cooperado">Pessoa</a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="mensalidade">Mensalidade</a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="emprestimo">Emprestimo</a></li>
+      </ul>
+      
+    </div>
+  </nav>
+</div>
+<script>
+$(".dropdown-button").dropdown();
+</script>
+
+</body>
+</html>
