@@ -34,7 +34,9 @@
 		
 		<div class="row">
 			<div class="input-field col s6">
-				<input type="text" th:field=*{competencia}/>
+				<select th:field="*{competencia}">
+					<option th:each="competencia : ${competencia}" th:value="${competencia}" th:text="${competencia}"></option>	
+				</select>
 				<label>Competencia</label>
 			</div>
 		</div>

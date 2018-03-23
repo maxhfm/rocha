@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.financeiro.caixinha.data.ContaEmprestimoData;
 import com.financeiro.caixinha.data.PessoaData;
-import com.financeiro.caixinha.model.Pessoa;
 import com.financeiro.caixinha.model.financeiro.ContaEmprestimo;
 import com.financeiro.caixinha.model.financeiro.TipoLancamento;
 
@@ -22,17 +21,17 @@ public class ContaEmprestimoController {
 	private PessoaData pessoas;
 	
 	
+	
 	@GetMapping("/contaEmprestimo/cadastrar")
-	public String emprestimo(ContaEmprestimo contaEmprestimo, Model model){
-		contaEmprestimo.setTipoLancamento(TipoLancamento.EMPRESTIMO);	
+	public String emprestimo(ContaEmprestimo contaEmprestimo, Model model){	
 		model.addAttribute("contaEmprestimo", contaEmprestimo);
 		model.addAttribute("pessoas", pessoas.findAll());
+		model.addAttribute("tipoLancamentos", TipoLancamento.values());
 		return "contaEmprestimo/cadastrar";
 	}
 	
 	@GetMapping("/contaEmprestimo/pagar")
 	public String pagar(ContaEmprestimo contaEmprestimo, Model model){
-		contaEmprestimo.setTipoLancamento(TipoLancamento.PAGAMENTO);
 		model.addAttribute("contaEmprestimo", contaEmprestimo);
 		model.addAttribute("pessoas", pessoas.findAll());
 		return "contaEmprestimo/cadastrar";

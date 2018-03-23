@@ -10,6 +10,7 @@ import com.financeiro.caixinha.data.CooperadoData;
 import com.financeiro.caixinha.data.MensalidadeData;
 import com.financeiro.caixinha.model.Cooperado;
 import com.financeiro.caixinha.model.Mensalidade;
+import com.financeiro.caixinha.model.Enum.Competencia;
 
 @Controller
 public class MensalidadeController {
@@ -25,6 +26,7 @@ public class MensalidadeController {
 	public String salvar(Mensalidade mensalidade, Model model) {
 		model.addAttribute("mensalidade", mensalidade);
 		model.addAttribute("cooperados", cooperadoPersistencia.findAll());
+		model.addAttribute("competencia", Competencia.values());
 		return "mensalidade/cadastrar";
 	}
 	

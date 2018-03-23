@@ -16,7 +16,6 @@
 		<h2 class="red-text text-darken-4">Cadastro Emprestimo</h2>
 			
 			<div class="row">
-				
 				<div class="input-field col s6">
 					<select th:field="*{pessoa}">
 						<option th:each="c : ${pessoas}" th:value="${c.id}" th:text="${c.nome}"></option>
@@ -31,10 +30,20 @@
 					<input type="text" th:field="*{valor}"/>
 				</div>
 			</div>
+			
 			<div class="row">
 				<div class="input-field col s6">
 					<label>Data do Vencimento</label>
 					<input holder="dd/MM/yyyy" type="text" th:field="*{dataLancamento}" />
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-field col s6">
+					<select th:field="*{tipoLancamento}">
+						<option th:each="tipoLancamento : ${tipoLancamentos}" th:value="${tipoLancamento}" th:text="${tipoLancamento}"></option>
+					</select>
+					<label>Tipo de Lançamento</label>
 				</div>
 			</div>
 			

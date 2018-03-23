@@ -26,7 +26,7 @@ public class ContaEmprestimo {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private LocalDate dataLancamento;
 	
-	private TipoLancamento tipoLancamento;
+	private String tipoLancamento;
 	
 	private BigDecimal valor;
 
@@ -34,15 +34,18 @@ public class ContaEmprestimo {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ContaEmprestimo(Long id, Pessoa pessoa, LocalDate dataLancamento, TipoLancamento tipoLancamento,
-			BigDecimal valor) {
+
+
+	public ContaEmprestimo(Long id, Pessoa pessoa, LocalDate dataLancamento, String tipoLancamento, BigDecimal valor) {
 		super();
 		this.id = id;
 		this.pessoa = pessoa;
 		this.dataLancamento = dataLancamento;
-		this.setTipoLancamento(tipoLancamento);
+		this.tipoLancamento = tipoLancamento;
 		this.valor = valor;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -76,11 +79,13 @@ public class ContaEmprestimo {
 		this.valor = valor;
 	}
 
-	public TipoLancamento getTipoLancamento() {
+	public String getTipoLancamento() {
 		return tipoLancamento;
 	}
 
-	public void setTipoLancamento(TipoLancamento tipoLancamento) {
+	public void setTipoLancamento(String tipoLancamento) {
 		this.tipoLancamento = tipoLancamento;
 	}
+
+	
 }
