@@ -25,19 +25,33 @@
 	<table class="striped highlight">
 	<thead>
 		<tr>
-			
+			<th>Id</th>
 			<th>Nome</th>
-			<th>Valor</th>
-			<th>Extrato</th>
+			<th>Data Lancamento</th>
+			<th>Emprestimo</th>
+			<th>Juros</th>
+			<th>Pagamento</th>
 		<tr>
 	</thead>
 	<tbody>
 		<tr th:each="c : ${contaEmprestimo}">
+			<td th:text="${c.id}"></td>
 			<td th:text="${c.pessoa.nome}"></td>
-			<td th:text="${c.valor}"></td>
-			<td><a th:href="@{/contaEmprestimo/extratoCliente}"><i class="material-icons">fingerprint</i></a></td>
+			<td th:text="${c.dataLancamento}"></td>
+			<td th:text="(${c.valor} &gt 0 ? ${c.valor} : (${c.valor} &lt 0 ?: ''))"></td>
+			<td th:text="${c.id}"></td>
+			<td th:text="(${c.valor} &lt 0 ? ${c.valor} : (${c.valor} &gt 0 ?: ''))"></td>
+			
 		</tr>
 	</tbody>
+	<tfoot>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th>Saldo</th>
+		<th th:text="${totalLancamentos}"></th>
+	</tfoot>
 	</table>
 </div>
 

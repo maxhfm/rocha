@@ -86,6 +86,11 @@ public class ContaEmprestimo {
 	public void setTipoLancamento(String tipoLancamento) {
 		this.tipoLancamento = tipoLancamento;
 	}
+	
+	public BigDecimal negativeValorPagamento() {
+		BigDecimal pagamentoNegativo = this.valor;
+		return pagamentoNegativo.negate();
+	}
 
 	
 }

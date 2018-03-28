@@ -34,20 +34,29 @@ public class ContaEmprestimoController {
 	public String pagar(ContaEmprestimo contaEmprestimo, Model model){
 		model.addAttribute("contaEmprestimo", contaEmprestimo);
 		model.addAttribute("pessoas", pessoas.findAll());
+		model.addAttribute("tipoLancamentos", TipoLancamento.values());
 		return "contaEmprestimo/cadastrar";
 	}
 	
 	@PostMapping("/contaEmprestimo/cadastrar")
 	public String lancamentoSalvar(ContaEmprestimo contaEmprestimo, Model model){
-		contaEmprestimoData.saveAndFlush(contaEmprestimo);
+		
 		model.addAttribute("contaEmprestimo",contaEmprestimoData.findByPessoa(contaEmprestimo.getPessoa()));
+		if(contaEmprestimo.getTipoLancamento().equals("PAGAMENTO"))
+			contaEmprestimo.setValor(contaEmprestimo.negativeValorPagamento());
+		
+		contaEmprestimoData.saveAndFlush(contaEmprestimo);
 		return "redirect:/contaEmprestimo/extrato";
 	}
 	
 	
 	@GetMapping("/contaEmprestimo/extrato")
 	public String emprestimoPesquisar(ContaEmprestimo contaEmprestimo,Model model){
+		String num = "";
 		model.addAttribute("contaEmprestimo", contaEmprestimoData.findAll());
+		
+		model.addAttribute("totalLancamentos", contaEmprestimoData.totalLancamentos());
+		model.addAttribute("zero", num);
 		return "contaEmprestimo/extrato";
 	}
 }
