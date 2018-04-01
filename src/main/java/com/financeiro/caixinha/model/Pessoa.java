@@ -1,5 +1,7 @@
 package com.financeiro.caixinha.model;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.financeiro.caixinha.model.financeiro.Emprestimo;
+import com.financeiro.caixinha.model.financeiro.Lancamento;
 
 @Entity
 public class Pessoa {
@@ -20,8 +22,8 @@ public class Pessoa {
 	private String banco;
 	private String agencia;
 	private String conta;
-	@OneToMany
-	List<Emprestimo> listaEmprestimos;
+	@OneToMany(mappedBy="pessoa")
+	List<Lancamento> lancamentos;
 
 	public Long getId() {
 		return id;
@@ -62,6 +64,14 @@ public class Pessoa {
 	public void setConta(String conta) {
 		this.conta = conta;
 	}
+	
+	public List<Lancamento> getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(List<Lancamento> lancamentos) {
+		this.lancamentos = lancamentos;
+	}
 
 	public Pessoa(Long id, String nome, String banco, String agencia, String conta) {
 		super();
@@ -75,5 +85,16 @@ public class Pessoa {
 	public Pessoa() {
 		super();
 	}
+	
+	public String saldos() {
+		NumberFormat formater = NumberFormat.getCurrencyInstance();
+		BigDecimal saldo = BigDecimal.valueOf(0);
+		for (Lancamento lancamento : this.getLancamentos()) {
+			saldo = saldo.add(lancamento.getValor());
+		}
+		return formater.format(saldo);	
+	}
+	
+	
 
 }

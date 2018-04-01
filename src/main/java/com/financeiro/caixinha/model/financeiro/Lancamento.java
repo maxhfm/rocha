@@ -2,6 +2,9 @@ package com.financeiro.caixinha.model.financeiro;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,29 +17,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.financeiro.caixinha.model.Pessoa;
 
 @Entity
-public class ContaEmprestimo {
-	
+public class Lancamento {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@ManyToOne
 	private Pessoa pessoa;
-	
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataLancamento;
-	
+
 	private String tipoLancamento;
-	
+
 	private BigDecimal valor;
 
-	public ContaEmprestimo() {
+	public Lancamento() {
 		// TODO Auto-generated constructor stub
 	}
-	
 
-
-	public ContaEmprestimo(Long id, Pessoa pessoa, LocalDate dataLancamento, String tipoLancamento, BigDecimal valor) {
+	public Lancamento(Long id, Pessoa pessoa, LocalDate dataLancamento, String tipoLancamento, BigDecimal valor) {
 		super();
 		this.id = id;
 		this.pessoa = pessoa;
@@ -44,8 +45,6 @@ public class ContaEmprestimo {
 		this.tipoLancamento = tipoLancamento;
 		this.valor = valor;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -86,11 +85,17 @@ public class ContaEmprestimo {
 	public void setTipoLancamento(String tipoLancamento) {
 		this.tipoLancamento = tipoLancamento;
 	}
-	
+
 	public BigDecimal negativeValorPagamento() {
 		BigDecimal pagamentoNegativo = this.valor;
 		return pagamentoNegativo.negate();
 	}
 
-	
+	public Map<Pessoa, Double> retornaSaldo(List<Lancamento> lista) {
+		
+		Map<Pessoa, Double> valorSaldo = lista.stream().collect(Collectors
+				.groupingBy(Lancamento::getPessoa, Collectors.summingDouble(p -> p.valor.doubleValue())));
+		return valorSaldo;
+	}
+
 }

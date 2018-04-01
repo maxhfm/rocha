@@ -25,17 +25,20 @@
 	<table class="striped highlight">
 	<thead>
 		<tr>
-			
+			<th>Id</th>
 			<th>Nome</th>
-			<th>Valor</th>
+			<th>Saldo Devedor</th>
+			<th>Realizar Lançamento</th>
 			<th>Extrato</th>
 		<tr>
 	</thead>
 	<tbody>
-		<tr th:each="c : ${contaEmprestimo}">
-			<td th:text="${c.pessoa.nome}"></td>
-			<td th:text="${c.valor}"></td>
-			<td><a th:href="@{/contaEmprestimo/extratoCliente}"><i class="material-icons">fingerprint</i></a></td>
+		<tr th:each="c : ${pessoas}">
+			<td th:text="${c.id}"></td>
+			<td th:text="${c.nome}"></td>
+			<td th:text="${c.saldos()}"></td>
+			<td><a th:href="@{/contaEmprestimo/lancamentoPorId/__${c.id}__}"><i class="material-icons">fingerprint</i></a></td>
+			<td><a th:href="@{/contaEmprestimo/extratoCliente/__${c.id}__}"><i class="material-icons">fingerprint</i></a></td>
 		</tr>
 	</tbody>
 	</table>

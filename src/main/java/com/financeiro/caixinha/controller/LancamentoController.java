@@ -4,59 +4,63 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.financeiro.caixinha.data.ContaEmprestimoData;
+import com.financeiro.caixinha.data.LancamentoData;
 import com.financeiro.caixinha.data.PessoaData;
-import com.financeiro.caixinha.model.financeiro.ContaEmprestimo;
+import com.financeiro.caixinha.model.Pessoa;
+import com.financeiro.caixinha.model.financeiro.Lancamento;
 import com.financeiro.caixinha.model.financeiro.TipoLancamento;
 
 @Controller
-public class ContaEmprestimoController {
+public class LancamentoController {
 	
 	@Autowired
-	private ContaEmprestimoData contaEmprestimoData;
+	private LancamentoData lancamentoData;
 
 	@Autowired
-	private PessoaData pessoas;
-	
+	private PessoaData pessoaData;
 	
 	
 	@GetMapping("/contaEmprestimo/cadastrar")
-	public String emprestimo(ContaEmprestimo contaEmprestimo, Model model){	
+	public String emprestimo(Lancamento contaEmprestimo, Model model){	
 		model.addAttribute("contaEmprestimo", contaEmprestimo);
-		model.addAttribute("pessoas", pessoas.findAll());
+		model.addAttribute("pessoas", pessoaData.findAll());
 		model.addAttribute("tipoLancamentos", TipoLancamento.values());
+		
 		return "contaEmprestimo/cadastrar";
 	}
 	
 	@GetMapping("/contaEmprestimo/pagar")
-	public String pagar(ContaEmprestimo contaEmprestimo, Model model){
+	public String pagar(Lancamento contaEmprestimo, Model model){
 		model.addAttribute("contaEmprestimo", contaEmprestimo);
-		model.addAttribute("pessoas", pessoas.findAll());
+		model.addAttribute("pessoas", pessoaData.findAll());
 		model.addAttribute("tipoLancamentos", TipoLancamento.values());
 		return "contaEmprestimo/cadastrar";
 	}
 	
 	@PostMapping("/contaEmprestimo/cadastrar")
-	public String lancamentoSalvar(ContaEmprestimo contaEmprestimo, Model model){
-		
-		model.addAttribute("contaEmprestimo",contaEmprestimoData.findByPessoa(contaEmprestimo.getPessoa()));
+	public String lancamentoSalvar(Lancamento contaEmprestimo, Model model){
+		model.addAttribute("contaEmprestimo",lancamentoData.findByPessoa(contaEmprestimo.getPessoa()));
 		if(contaEmprestimo.getTipoLancamento().equals("PAGAMENTO"))
 			contaEmprestimo.setValor(contaEmprestimo.negativeValorPagamento());
 		
-		contaEmprestimoData.saveAndFlush(contaEmprestimo);
+		lancamentoData.saveAndFlush(contaEmprestimo);
 		return "redirect:/contaEmprestimo/extrato";
 	}
 	
 	
 	@GetMapping("/contaEmprestimo/extrato")
-	public String emprestimoPesquisar(ContaEmprestimo contaEmprestimo,Model model){
-		String num = "";
-		model.addAttribute("contaEmprestimo", contaEmprestimoData.findAll());
-		
-		model.addAttribute("totalLancamentos", contaEmprestimoData.totalLancamentos());
-		model.addAttribute("zero", num);
+	public String emprestimoPesquisar(Lancamento contaEmprestimo,Model model){
+		model.addAttribute("pessoas", pessoaData.findAll());
 		return "contaEmprestimo/extrato";
 	}
+	
+	@GetMapping("/contaEmprestimo/extratoCliente/{id}")
+	public String lancamentoCliente(@PathVariable Long id, Pessoa pessoa, Lancamento contaEmprestimo,Model model){
+		model.addAttribute("pessoa", pessoaData.findById(id));
+		return "contaEmprestimo/extratoCliente";
+	}
+	
 }
