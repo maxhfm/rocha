@@ -37,6 +37,18 @@ public class Lancamento {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+	public Lancamento(Pessoa pessoa, LocalDate dataLancamento, String tipoLancamento, BigDecimal valor) {
+		super();
+		this.pessoa = pessoa;
+		this.dataLancamento = dataLancamento;
+		this.tipoLancamento = tipoLancamento;
+		this.valor = valor;
+	}
+
+
+
 	public Lancamento(Long id, Pessoa pessoa, LocalDate dataLancamento, String tipoLancamento, BigDecimal valor) {
 		super();
 		this.id = id;
@@ -96,6 +108,15 @@ public class Lancamento {
 		Map<Pessoa, Double> valorSaldo = lista.stream().collect(Collectors
 				.groupingBy(Lancamento::getPessoa, Collectors.summingDouble(p -> p.valor.doubleValue())));
 		return valorSaldo;
+	}
+	
+	
+	public BigDecimal atualizaJuros(List<Lancamento> lancamentos){
+		BigDecimal saldo = BigDecimal.valueOf(0);
+		for (Lancamento lancamento : lancamentos) {
+			saldo = saldo.add(lancamento.getValor());
+		}
+		return saldo.multiply(new BigDecimal("0.1"));
 	}
 
 }
