@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.financeiro.caixinha.model.financeiro.Emprestimo;
+import com.financeiro.caixinha.model.financeiro.Lancamento;
 
 @Entity
 public class Pessoa {
@@ -87,14 +88,28 @@ public class Pessoa {
 		this.emprestimos = emprestimos;
 	}
 
-	public String totalEmprestimo() {
-		NumberFormat formater = NumberFormat.getCurrencyInstance();
+	public BigDecimal totalEmprestimo() {
 		BigDecimal totalEmprestimo = BigDecimal.valueOf(0);
 		for (Emprestimo emprestimo : this.getEmprestimos()) {
 			totalEmprestimo = totalEmprestimo.add(emprestimo.getValor());
 		}
-		return formater.format(totalEmprestimo);
+		return totalEmprestimo;
 	}
+	
+	public BigDecimal saldoTotalAPagar() {
+		BigDecimal totalEmprestimo = BigDecimal.valueOf(0);
+		BigDecimal totalLancamento = BigDecimal.valueOf(0);
+		for (Emprestimo emprestimo : this.getEmprestimos()) {
+			totalEmprestimo = totalEmprestimo.add(emprestimo.getValor());
+			for(Lancamento l : emprestimo.getLancamentos()) {
+				totalLancamento = totalLancamento.add(l.getValor());
+			}
+		}
+		
+		return totalEmprestimo.subtract(totalLancamento);
+	}
+	
+	
 
 	/*
 	 * public String saldos() { NumberFormat formater =

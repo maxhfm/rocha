@@ -37,7 +37,7 @@
 		<tr th:each="e : ${emprestimo}">
 			<td th:text="${e.id}"></td>
 			<td th:text="${e.pessoa.nome}"></td>
-			<td th:text="${e.data}"></td>
+			<td th:text="${#temporals.format(e.data, 'dd/MM/yyyy')}"></td>
 			<td th:text="${e.valor}"></td>
 			<td>
 				<table>

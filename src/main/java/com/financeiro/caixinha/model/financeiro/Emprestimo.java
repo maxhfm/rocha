@@ -86,13 +86,18 @@ public class Emprestimo {
 		this.data = data;
 	}
 	
-	public String totalLancamentos() {
+	public BigDecimal totalLancamentos() {
 		NumberFormat formater = NumberFormat.getCurrencyInstance();
 		BigDecimal totalLancamentos = BigDecimal.valueOf(0);
 		for (Lancamento l : this.getLancamentos()) {
 			totalLancamentos = totalLancamentos.add(l.getValor());
 		}
-		return formater.format(totalLancamentos);
+		return totalLancamentos;
+	}
+	
+	public BigDecimal saldoaPagar(){
+		NumberFormat formater = NumberFormat.getCurrencyInstance();
+		return this.valor.subtract(totalLancamentos());
 	}
 
 }

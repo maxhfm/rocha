@@ -29,7 +29,6 @@ public class EmprestimoController {
 	@Autowired
 	private LancamentoData lancamentoData;
 	
-	
 	@GetMapping("/emprestimo/simulacao")
 	public String simulacao(SimulacaoEmprestimo emprestimo, Model model){
 		model.addAttribute("emprestimo", emprestimo);
@@ -55,12 +54,6 @@ public class EmprestimoController {
 		return "redirect:/emprestimo/pesquisar";
 	}
 	
-	@PostMapping("/lancamento/cadastrar")
-	public String lancamentoSalvar(Lancamento lancamento, Emprestimo emprestimo, Model model){
-		lancamentoData.saveAndFlush(lancamento);
-		return "redirect:/emprestimo/pesquisar";
-	}
-	
 	@GetMapping("/emprestimo/pesquisar")
 	public String emprestimoPesquisar(Model model){
 		model.addAttribute("pessoas", pessoaData.findAll());
@@ -72,14 +65,6 @@ public class EmprestimoController {
 		model.addAttribute("pessoa", pessoaData.findById(id).get());
 		model.addAttribute("emprestimo", emprestimo);
 		return "emprestimo/novoEmprestimo";
-	}
-	
-	@GetMapping("/emprestimo/pagamento/{id}")
-	public String novoPagamentoByPessoa(@PathVariable Long id, Emprestimo emprestimo, Lancamento lancamento, Model model) {
-		model.addAttribute("emprestimo", emprestimoData.findById(id).get());
-		model.addAttribute("tipoLancamentos", TipoLancamento.values());
-		model.addAttribute("lancamento", lancamento);
-		return "emprestimo/pagamento";
 	}
 	
 	@GetMapping("/emprestimo/pesquisarEmprestimoPorPessoa/{id}")
@@ -94,6 +79,20 @@ public class EmprestimoController {
 		return "emprestimo/pesquisarExtratoPorEmprestimo";
 	}
 	
+	
+	@GetMapping("/emprestimo/pagamento/{id}")
+	public String novoPagamentoByPessoa(@PathVariable Long id, Emprestimo emprestimo, Lancamento lancamento, Model model) {
+		model.addAttribute("emprestimo", emprestimoData.findById(id).get());
+		model.addAttribute("tipoLancamentos", TipoLancamento.values());
+		model.addAttribute("lancamento", lancamento);
+		return "emprestimo/pagamento";
+	}
+	
+	@PostMapping("/lancamento/cadastrar")
+	public String lancamentoSalvar(Lancamento lancamento, Emprestimo emprestimo, Model model){
+		lancamentoData.saveAndFlush(lancamento);
+		return "redirect:/emprestimo/pesquisar";
+	}
 	
 	
 	

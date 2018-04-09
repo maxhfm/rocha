@@ -30,9 +30,9 @@
 			<th>Contratante</th>
 			<th>Data</th>
 			<th>Emprestimo</th>
-			<th>Total Pago</th>
+			<th>Saldo a Pagar</th>
 			<th>Extrato</th>
-			<th>Realizar Pagamento</th>
+			<th>Realizar Lancamento</th>
 			<th>Opcoes</th>
 		<tr>
 	</thead>
@@ -42,14 +42,14 @@
 			<td th:text="${e.pessoa.nome}"></td>
 			<td th:text="${#temporals.format(e.data, 'dd/MM/yyyy')}"></td>
 			<td th:text="${e.valor}"></td>
-			<td th:text="${e.totalLancamentos()}"></td>
+			<td th:text="${e.saldoaPagar()}"></td>
 			<td>
 				<a th:href="@{/emprestimo/pesquisarExtratoPorEmprestimo/__${e.id}__}">
 					<i class="material-icons">attach_money</i></a>
 			</td>
 			<td>
 				<a th:href="@{/emprestimo/pagamento/__${e.id}__}">
-					<i class="material-icons">attach_money</i></a>
+					<i class="material-icons">add</i></a>
 			</td>
 			<td>
 				<a th:href="@{/emprestimo/editar/__${e.id}__}">
