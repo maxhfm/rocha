@@ -6,4 +6,6 @@ import com.financeiro.caixinha.model.Pessoa;
 
 public interface PessoaData extends JpaRepository<Pessoa, Long> {
 
+	
+
 }

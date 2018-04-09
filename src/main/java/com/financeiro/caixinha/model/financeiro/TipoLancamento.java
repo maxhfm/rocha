@@ -2,7 +2,7 @@ package com.financeiro.caixinha.model.financeiro;
 
 public enum TipoLancamento {
 	
-	EMPRESTIMO(1), PAGAMENTO(2), JUROS(3);
+	PAGAMENTO(1), JUROS(2);
 	
 	private final int tipo;
 	

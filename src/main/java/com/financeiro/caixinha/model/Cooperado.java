@@ -12,20 +12,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Cooperado extends Pessoa{
-	
+public class Cooperado extends Pessoa {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer quantidadeCota;
 	@ManyToOne
 	private CotaAnual valorCotaAnual;
-	
-	//@OneToMany(mappedBy = "idCooperado", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	// @OneToMany(mappedBy = "idCooperado", cascade = CascadeType.ALL, fetch =
+	// FetchType.EAGER)
 	@OneToMany(mappedBy = "idCooperado", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Mensalidade> listaMensalidade;
-	
-	
+
 	public List<Mensalidade> getListaMensalidade() {
 		return listaMensalidade;
 	}
@@ -34,7 +34,7 @@ public class Cooperado extends Pessoa{
 		this.listaMensalidade = listaMensalidade;
 	}
 
-	//Get Setters
+	// Get Setters
 	public Long getId() {
 		return id;
 	}
@@ -59,8 +59,6 @@ public class Cooperado extends Pessoa{
 		this.valorCotaAnual = valorCotaAnual;
 	}
 
-	
-
 	public Cooperado(Long id, String nome, String banco, String agencia, String conta, Long id2, Integer quantidadeCota,
 			CotaAnual valorCotaAnual) {
 		super(id, nome, banco, agencia, conta);
@@ -74,30 +72,17 @@ public class Cooperado extends Pessoa{
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	public float totalMensalidades() {
 		return this.listaMensalidade.stream().map(Mensalidade::getValor).reduce(Float.valueOf(0f), (a, b) -> {
 			return Float.sum(a, b);
 		});
 	}
-	
+
 	/*
-	String competencia = "02/2018";
-	public Stream<Mensalidade> totalMensalidadesporCompetencia() {
-		
-		return this.listaMensalidade.stream().map(Mensalidade::getCompetencia).re
-	}
-	*/
-
-
-	
-	
-	
-	
-	
-	
-
-		
-	
+	 * String competencia = "02/2018"; public Stream<Mensalidade>
+	 * totalMensalidadesporCompetencia() {
+	 * 
+	 * return this.listaMensalidade.stream().map(Mensalidade::getCompetencia).re }
+	 */
 
 }

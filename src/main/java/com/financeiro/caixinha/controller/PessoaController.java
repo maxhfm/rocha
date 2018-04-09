@@ -70,7 +70,7 @@ public class PessoaController {
 	@PostMapping("/pessoa/cliente/cadastrar")
 	public String salvarCliente(Cliente cliente){
 		clienteData.saveAndFlush(cliente);
-		return "redirect:/pessoa/cliente/pesquisar";
+		return "redirect:/emprestimo/pesquisar";
 	}
 	
 	@GetMapping("/pessoa/cliente/pesquisar")

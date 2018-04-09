@@ -7,13 +7,11 @@ import javax.persistence.Id;
 
 @Entity
 public class Cliente extends Pessoa {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -29,19 +27,19 @@ public class Cliente extends Pessoa {
 
 	public Cliente() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
+	
 
-	public Cliente(Long id, String nome, String banco, String agencia, String conta) {
-		super(id, nome, banco, agencia, conta);
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 	
 	
 	
 	
 
 	
+	
+	
+
+	
+
 }

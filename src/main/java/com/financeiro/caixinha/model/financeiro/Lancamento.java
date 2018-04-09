@@ -3,8 +3,6 @@ package com.financeiro.caixinha.model.financeiro;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +12,6 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.financeiro.caixinha.model.Pessoa;
-
 @Entity
 public class Lancamento {
 
@@ -24,7 +20,7 @@ public class Lancamento {
 	private Long id;
 
 	@ManyToOne
-	private Pessoa pessoa;
+	private Emprestimo emprestimo;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataLancamento;
@@ -37,41 +33,12 @@ public class Lancamento {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public Lancamento(Pessoa pessoa, LocalDate dataLancamento, String tipoLancamento, BigDecimal valor) {
-		super();
-		this.pessoa = pessoa;
-		this.dataLancamento = dataLancamento;
-		this.tipoLancamento = tipoLancamento;
-		this.valor = valor;
-	}
-
-
-
-	public Lancamento(Long id, Pessoa pessoa, LocalDate dataLancamento, String tipoLancamento, BigDecimal valor) {
-		super();
-		this.id = id;
-		this.pessoa = pessoa;
-		this.dataLancamento = dataLancamento;
-		this.tipoLancamento = tipoLancamento;
-		this.valor = valor;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
 	}
 
 	public LocalDate getDataLancamento() {
@@ -98,20 +65,38 @@ public class Lancamento {
 		this.tipoLancamento = tipoLancamento;
 	}
 
+	public Emprestimo getEmprestimo() {
+		return emprestimo;
+	}
+
+	public void setEmprestimo(Emprestimo emprestimo) {
+		this.emprestimo = emprestimo;
+	}
+
+	public Lancamento(Long id, Emprestimo emprestimo, LocalDate dataLancamento, String tipoLancamento,
+			BigDecimal valor) {
+		super();
+		this.id = id;
+		this.emprestimo = emprestimo;
+		this.dataLancamento = dataLancamento;
+		this.tipoLancamento = tipoLancamento;
+		this.valor = valor;
+	}
+
 	public BigDecimal negativeValorPagamento() {
 		BigDecimal pagamentoNegativo = this.valor;
 		return pagamentoNegativo.negate();
 	}
 
-	public Map<Pessoa, Double> retornaSaldo(List<Lancamento> lista) {
-		
-		Map<Pessoa, Double> valorSaldo = lista.stream().collect(Collectors
-				.groupingBy(Lancamento::getPessoa, Collectors.summingDouble(p -> p.valor.doubleValue())));
-		return valorSaldo;
-	}
-	
-	
-	public BigDecimal atualizaJuros(List<Lancamento> lancamentos){
+	/*
+	 * public Map<Pessoa, Double> retornaSaldo(List<Lancamento> lista) {
+	 * 
+	 * Map<Pessoa, Double> valorSaldo = lista.stream().collect(Collectors
+	 * .groupingBy(Emprestimo::getPessoa, Collectors.summingDouble(p ->
+	 * p.valor.doubleValue()))); return valorSaldo; }
+	 */
+
+	public BigDecimal atualizaJuros(List<Lancamento> lancamentos) {
 		BigDecimal saldo = BigDecimal.valueOf(0);
 		for (Lancamento lancamento : lancamentos) {
 			saldo = saldo.add(lancamento.getValor());

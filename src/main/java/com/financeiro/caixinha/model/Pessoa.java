@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.financeiro.caixinha.model.financeiro.Lancamento;
+import com.financeiro.caixinha.model.financeiro.Emprestimo;
 
 @Entity
 public class Pessoa {
@@ -22,8 +22,9 @@ public class Pessoa {
 	private String banco;
 	private String agencia;
 	private String conta;
-	@OneToMany(mappedBy="pessoa")
-	List<Lancamento> lancamentos;
+
+	@OneToMany(mappedBy = "pessoa")
+	List<Emprestimo> emprestimos;
 
 	public Long getId() {
 		return id;
@@ -64,13 +65,9 @@ public class Pessoa {
 	public void setConta(String conta) {
 		this.conta = conta;
 	}
-	
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
-	}
 
-	public void setLancamentos(List<Lancamento> lancamentos) {
-		this.lancamentos = lancamentos;
+	public Pessoa() {
+		super();
 	}
 
 	public Pessoa(Long id, String nome, String banco, String agencia, String conta) {
@@ -81,20 +78,29 @@ public class Pessoa {
 		this.agencia = agencia;
 		this.conta = conta;
 	}
-	
-	public Pessoa() {
-		super();
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
 	}
-	
-	public String saldos() {
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
+	}
+
+	public String totalEmprestimo() {
 		NumberFormat formater = NumberFormat.getCurrencyInstance();
-		BigDecimal saldo = BigDecimal.valueOf(0);
-		for (Lancamento lancamento : this.getLancamentos()) {
-			saldo = saldo.add(lancamento.getValor());
+		BigDecimal totalEmprestimo = BigDecimal.valueOf(0);
+		for (Emprestimo emprestimo : this.getEmprestimos()) {
+			totalEmprestimo = totalEmprestimo.add(emprestimo.getValor());
 		}
-		return formater.format(saldo);	
+		return formater.format(totalEmprestimo);
 	}
-	
-	
+
+	/*
+	 * public String saldos() { NumberFormat formater =
+	 * NumberFormat.getCurrencyInstance(); BigDecimal saldo = BigDecimal.valueOf(0);
+	 * for (Lancamento lancamento : this.getLancamentos()) { saldo =
+	 * saldo.add(lancamento.getValor()); } return formater.format(saldo); }
+	 */
 
 }

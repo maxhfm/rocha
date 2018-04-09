@@ -1,7 +1,5 @@
 package com.financeiro.caixinha.controller;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,15 +34,8 @@ public class LancamentoController {
 	
 	@PostMapping("/contaEmprestimo/cadastrar")
 	public String lancamentoSalvar(Lancamento lancamento, Model model){
-		model.addAttribute("contaEmprestimo",lancamentoData.findByPessoa(lancamento.getPessoa()));
-		if(lancamento.getTipoLancamento().equals("EMPRESTIMO"))
-			lancamento.setValor(lancamento.negativeValorPagamento());
 		
 		lancamentoData.saveAndFlush(lancamento);
-		
-		BigDecimal juros = lancamento.atualizaJuros(lancamentoData.findByPessoa(lancamento.getPessoa()));
-		Lancamento lancamento2 = new Lancamento(lancamento.getPessoa(), lancamento.getDataLancamento(), "JUROS", juros);
-		lancamentoData.saveAndFlush(lancamento2);
 		
 		return "redirect:/contaEmprestimo/extrato";
 	}
