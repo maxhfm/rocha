@@ -10,38 +10,25 @@
 </head>
 <body>
 <div th:include="menu/menu :: menu"></div>
-<form class="col s12" th:action="@{/emprestimo/cadastrar}" th:object="${emprestimo}" method="POST">
+<form class="col s12" th:action="@{/demaisDespesas/cadastrar}" th:object="${despesa}" method="POST">
 	
 	<div class="container">
-		<h2 class="red-text text-darken-4">Cadastro Emprestimo</h2>
+		<h2 class="red-text text-darken-4">Cadastro Despesas Diversas</h2>
 			
 			<div class="row">
 				<div class="input-field col s6">
-					<select th:field="*{pessoa}">
-						<option th:each="c : ${pessoas}" th:value="${c.id}" th:text="${c.nome}"></option>
-					</select>
-					<label>Cooperado</label>
+					<label>Descrição</label>
+					<input type="text" th:field="*{descricao}"/>
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="input-field col s6">
-					<label>Valor do Emprestimo</label>
-					<input type="text" th:field="*{valor}"/>
+					<label>Valor</label>
+					<input holder="dd/MM/yyyy" type="text" th:field="*{valor}" />
 				</div>
 			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<label>Data do Empréstimo</label>
-					<input holder="dd/MM/yyyy" type="text" th:field="*{dataEmprestimo}" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<label>Data do Vencimento</label>
-					<input holder="dd/MM/yyyy" type="text" th:field="*{dataVencimento}" />
-				</div>
-			</div>
+			
 			
 			
 		<br><br><br>

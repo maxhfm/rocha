@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.financeiro.caixinha.data.EmprestimoData;
+import com.financeiro.caixinha.data.JurosData;
 import com.financeiro.caixinha.data.LancamentoData;
 import com.financeiro.caixinha.data.PessoaData;
 import com.financeiro.caixinha.model.Cooperado;
 import com.financeiro.caixinha.model.Pessoa;
 import com.financeiro.caixinha.model.SimulacaoEmprestimo;
 import com.financeiro.caixinha.model.financeiro.Emprestimo;
+import com.financeiro.caixinha.model.financeiro.Juros;
 import com.financeiro.caixinha.model.financeiro.Lancamento;
 import com.financeiro.caixinha.model.financeiro.TipoLancamento;
 
@@ -28,6 +30,9 @@ public class EmprestimoController {
 
 	@Autowired
 	private LancamentoData lancamentoData;
+	
+	@Autowired
+	private JurosData jurosData;
 	
 	@GetMapping("/emprestimo/simulacao")
 	public String simulacao(SimulacaoEmprestimo emprestimo, Model model){
@@ -49,8 +54,13 @@ public class EmprestimoController {
 	}
 	
 	@PostMapping("/emprestimo/cadastrar")
-	public String emprestimoSalvar(Emprestimo emprestimo, Pessoa pessoa, Model model){
+	public String emprestimoSalvar(Emprestimo emprestimo, Juros juros, Model model){
+		juros.setEmprestimo(emprestimo);
+		juros.setDataLancamento(emprestimo.getDataEmprestimo());
+		juros.setValor(juros.calculaJuros());
+		jurosData.save(juros);
 		emprestimoData.saveAndFlush(emprestimo);
+		
 		return "redirect:/emprestimo/pesquisar";
 	}
 	

@@ -1,5 +1,6 @@
 package com.financeiro.caixinha.model.financeiro;
 
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,37 +9,44 @@ import javax.persistence.Id;
 
 @Entity
 public class Despesa {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String descricao;
-	private float valor;
+
+	private BigDecimal valor;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public float getValor() {
+
+	public BigDecimal getValor() {
 		return valor;
 	}
-	public void setValor(float valor) {
+
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-	public Despesa(Long id, String descricao, float valor) {
+
+	public Despesa(Long id, String descricao, BigDecimal valor) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.valor = valor;
 	}
-	
-	
 
 }
